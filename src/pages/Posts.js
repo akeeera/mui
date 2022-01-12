@@ -7,10 +7,20 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPosts } from "../actions/getPosts";
 
 function Cards() {
+  const { posts } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts());
+  });
+
   return (
-    <div className="App">
+    <div className="card">
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           component="img"
@@ -44,5 +54,5 @@ function Cards() {
   );
 }
 
-ReactDOM.render(<Cards />, document.querySelector("#app"));
+ReactDOM.render(<Cards />, document.querySelector("#cards"));
 export default Cards;

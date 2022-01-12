@@ -1,9 +1,9 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
 import Posts from "./pages/Posts";
-import store from "./store/store.js";
+import store from "./store/store";
 import { Provider } from "react-redux";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { orange } from "@mui/material/colors";
 
 const theme = createTheme({
@@ -14,13 +14,11 @@ const theme = createTheme({
 
 function App() {
   return (
-    <div className="App">
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <Posts />
-        </ThemeProvider>
-      </Provider>
-    </div>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Posts />
+      </ThemeProvider>
+    </Provider>
   );
 }
 
