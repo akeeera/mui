@@ -17,7 +17,7 @@ function Cards() {
 
   useEffect(() => {
     dispatch(getPosts());
-  });
+  }, [dispatch]);
 
   return (
     <div className="card">
