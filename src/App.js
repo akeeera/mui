@@ -1,10 +1,10 @@
 import * as React from "react";
-import ReactDOM from "react-dom";
 import Posts from "./pages/Posts";
 import store from "./store/store";
 import { Provider } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { orange } from "@mui/material/colors";
+import Container from "@mui/material/Container";
 
 const theme = createTheme({
   status: {
@@ -16,11 +16,12 @@ function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <Posts />
+        <Container maxWidth="xl">
+          <Posts />
+        </Container>
       </ThemeProvider>
     </Provider>
   );
 }
 
-ReactDOM.render(<App />, document.querySelector("#app"));
 export default App;
