@@ -16,7 +16,7 @@ function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <Container maxWidth="xl">
+        <Container>
           <Posts />
         </Container>
       </ThemeProvider>

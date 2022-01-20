@@ -3,6 +3,7 @@ import Post from "../components/Post";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../actions/getPosts";
+import Grid from "@mui/material/Grid";
 
 function Posts() {
   const { posts } = useSelector((state) => state);
@@ -14,9 +15,13 @@ function Posts() {
 
   return (
     <div className="posts">
-      {posts.data.map((item) => (
-        <Post key={item.id} title={item.title} />
-      ))}
+      <Grid container>
+        {posts.data.map((item) => (
+          <Grid item xs={4}>
+            <Post key={item.id} title={item.title} props={item.body} />
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 }
