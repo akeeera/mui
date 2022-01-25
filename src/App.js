@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { orange } from "@mui/material/colors";
 import Container from "@mui/material/Container";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 
 const theme = createTheme({
   status: {
@@ -14,13 +15,19 @@ const theme = createTheme({
 
 function App() {
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
         <Container>
-          <Posts />
+          <BrowserRouter>
+            <Route exact path="/posts">
+              <Posts />
+            </Route>
+            <Route exact path="*" />
+            <Redirect to="/posts" />
+          </BrowserRouter>
         </Container>
-      </ThemeProvider>
-    </Provider>
+      </Provider>
+    </ThemeProvider>
   );
 }
 

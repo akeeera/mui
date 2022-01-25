@@ -10,20 +10,23 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorder from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { makeStyles, withThemeCreator } from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Grid from "@mui/material/Grid";
+import { useState } from "react";
 
-const useStyles = makeStyles({
-  root: {
-    backgroundColor: "#F0F0F0",
+const useStyles = makeStyles(() => ({
+  likeIcon: {
+    "& svg": {
+      color: red[500],
+    },
   },
-});
+}));
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -37,14 +40,35 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function Post({ title, body, userId, id }) {
-  const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const classes = useStyles();
   const { users } = useSelector((state) => state);
   const [comments, setComments] = React.useState([]);
+  const [like, setLike] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const handleLike = () => {
+    setLike(!like);
+    const dictionary = JSON.parse(localStorage.getItem("likeDictionary")) || {};
+
+    if (!like) {
+      dictionary[id] = true;
+      localStorage.setItem("likeDictionary", JSON.stringify(dictionary));
+    } else {
+      delete dictionary[id];
+      localStorage.setItem("likeDictionary", JSON.stringify(dictionary));
+    }
+  };
+
+  useEffect(() => {
+    const dictionary = JSON.parse(localStorage.getItem("likeDictionary"));
+    if (dictionary[id]) {
+      setLike(true);
+    }
+  }, []);
 
   const user = users.data.find((item) => item.id === userId);
 
@@ -56,8 +80,12 @@ export default function Post({ title, body, userId, id }) {
     }
   }, [expanded]);
 
+  if (!user) {
+    return <></>;
+  }
+
   return (
-    <Card  className={classes.root}>
+    <Card>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -88,8 +116,13 @@ export default function Post({ title, body, userId, id }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton
+          aria-label="like"
+          id={id}
+          onClick={handleLike}
+          className={like ? classes.likeIcon : ""}
+        >
+          <FavoriteBorder />
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
