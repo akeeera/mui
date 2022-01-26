@@ -1,11 +1,10 @@
 import * as React from "react";
-import Post from "../components/Post";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../actions/getPosts";
 import Grid from "@mui/material/Grid";
-import { getUsers } from "../actions/getUsers";
+import { getPhotos } from "../actions/getPhotos";
 import { makeStyles } from "@mui/styles";
+import Photo from "../components/Photo";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,38 +14,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Posts() {
-  const { posts } = useSelector((state) => state);
+function Photos() {
+  const { photos } = useSelector((state) => state);
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
-    dispatch(getUsers());
-    dispatch(getPosts());
+    dispatch(getPhotos());
   }, [dispatch]);
 
   return (
-    <div className="posts">
-      <Grid
+    <div className="albums">
+      {/* <Grid
         container
-        spacing={3}
+        spacing={5}
         justifyContent={"center"}
+        textAlign={"center"}
         className={classes.root}
       >
-        {posts.data.map((item) => (
-          <Grid item xl={4} lg={4} md={6} sm={8} xs={12} key={item.id}>
-            <Post
-              key={item.id}
+        {photos.data.map((item) => (
+          <Grid item xl={4} lg={4} md={6} sm={6} xs={12} key={item.id}>
+            <Photo
               title={item.title}
-              body={item.body}
-              userId={item.userId}
+              url={item.url}
+              albumId={item.albumId}
               id={item.id}
             />
           </Grid>
         ))}
-      </Grid>
+      </Grid> */}
     </div>
   );
 }
 
-export default Posts;
+export default Photos;

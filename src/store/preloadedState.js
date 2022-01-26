@@ -7,4 +7,12 @@ export const preloadedState = {
     loading: false,
     data: [],
   },
+  albums: {
+    loading: false,
+    data: [],
+  },
+  photos: {
+    loading: false,
+    data: [],
+  },
 };

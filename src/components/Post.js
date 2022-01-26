@@ -64,11 +64,11 @@ export default function Post({ title, body, userId, id }) {
   };
 
   useEffect(() => {
-    const dictionary = JSON.parse(localStorage.getItem("likeDictionary"));
+    const dictionary = JSON.parse(localStorage.getItem("likeDictionary")) || {};
     if (dictionary[id]) {
       setLike(true);
     }
-  }, []);
+  }, [id]);
 
   const user = users.data.find((item) => item.id === userId);
 
@@ -79,6 +79,8 @@ export default function Post({ title, body, userId, id }) {
         .then((result) => setComments(result));
     }
   }, [expanded]);
+
+  console.log();
 
   if (!user) {
     return <></>;
