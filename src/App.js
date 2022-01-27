@@ -25,9 +25,8 @@ function App() {
           <Container>
             <Routes>
               <Route exact path="posts" element={<Posts />} />
-              <Route exact path="albums" element={<Albums />}>
-                <Route exact path=":id" element={<Photos />} />
-              </Route>
+              <Route exact path="albums" element={<Albums />} />
+              <Route exact path="albums/:id" element={<Photos />} />
               <Route exact path="*" element={<Navigate to="posts" />} />
             </Routes>
           </Container>

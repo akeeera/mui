@@ -7,12 +7,15 @@ import { CardActionArea } from "@mui/material";
 import { useSelector } from "react-redux";
 
 export default function Photo({ title, url, albumId, id }) {
-
   return (
     <Card>
       <CardActionArea>
         <CardContent>
-          <Typography gutterBottom variant="subtitle2" component="div">
+          <Typography
+            gutterBottom
+            variant="subtitle2"
+            component="div"
+          >
             {title}
           </Typography>
         </CardContent>

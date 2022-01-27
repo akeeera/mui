@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../actions/getPosts";
 import Grid from "@mui/material/Grid";
 import { getUsers } from "../actions/getUsers";
+import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,8 +34,17 @@ function Posts() {
         justifyContent={"center"}
         className={classes.root}
       >
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          justifyContent={"center"}
+          position={"absolute"}
+        >
+          Posts
+        </Typography>
         {posts.data.map((item) => (
-          <Grid item xl={4} lg={4} md={6} sm={8} xs={12} key={item.id}>
+          <Grid item xl={4} lg={4} md={6} sm={8} xs={12} mt={4} key={item.id}>
             <Post
               key={item.id}
               title={item.title}

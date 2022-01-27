@@ -1,45 +1,52 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     textDecoration: "none",
+    color: "white",
+  },
+  menu: {
+    [theme.breakpoints.down("md")]: {
+      textAlign: "center",
+    },
   },
 }));
 
-export default function Header() {
+export default function Header(id) {
   const classes = useStyles();
 
   return (
-    <Grid container justifyContent={"center"}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          "& > *": {
-            m: 1,
-          },
-        }}
-      >
-        <ButtonGroup variant="text" aria-label="large button group">
+    <Box className={classes.menu} pb={7}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Link to="posts" className={classes.root}>
-            <Grid item>
-              <Button>POSTS</Button>
-            </Grid>
+            <Button color="inherit">Posts</Button>
           </Link>
           <Link to="albums" className={classes.root}>
-            <Grid item>
-              <Button>ALBUMS</Button>
-            </Grid>
+            <Button color="inherit">Albums</Button>
           </Link>
-        </ButtonGroup>
-      </Box>
-    </Grid>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }
