@@ -30,15 +30,6 @@ export default function Header(id) {
     <Box className={classes.menu} pb={7}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Link to="posts" className={classes.root}>
             <Button color="inherit">Posts</Button>
           </Link>
