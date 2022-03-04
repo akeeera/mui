@@ -7,7 +7,6 @@ import Grid from "@mui/material/Grid";
 import {getUsers} from "../actions/getUsers";
 import {Autocomplete, TextField, Typography} from "@mui/material";
 import {makeStyles} from "@mui/styles";
-import Button from "@mui/material/Button";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,16 +18,38 @@ const useStyles = makeStyles((theme) => ({
 
 function Posts() {
     const {posts, users} = useSelector((state) => state);
-    const [value, setValue] = React.useState([]);
+    // const [value, setValue] = React.useState([]);
+    const [options, setOptions] = React.useState([]);
     const dispatch = useDispatch();
     const classes = useStyles();
     console.log(users.data)
+
     useEffect(() => {
         dispatch(getUsers());
         dispatch(getPosts());
-    }, [dispatch]);
+
+        const newUsers = users.data.map(item => {
+            const container = {};
+
+            container.label = item.name;
+            container.id = item.id;
+
+            return container;
+        });
+
+        setOptions(newUsers.splice(0, 5));
+
+    }, [dispatch, users.data]);
 
     return (<div className="posts">
+            <Autocomplete
+                getOptionLabel={(option) => option.label}
+                disablePortal
+                id="combo-box-demo"
+                options={options}
+                sx={{width: 300}}
+                renderInput={(params) => <TextField {...params} label="Movie"/>}
+            />
             <Grid
                 container
                 spacing={3}
@@ -44,18 +65,10 @@ function Posts() {
                 >
                     Posts
                 </Typography>
-                <Button onClick={() => {
-                    setValue(users.data.map(name));
-                    console.log(value)
-                }}>Try</Button>
-                <Autocomplete
-                    getOptionLabel={(option) => option.name}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={users.data}
-                    sx={{width: 300}}
-                    renderInput={(params) => <TextField {...params} label="Movie"/>}
-                />
+                {/*<Button onClick={() => {*/}
+                {/*    setValue(users.data.map(name));*/}
+                {/*    console.log(value)*/}
+                {/*}}>Try</Button>*/}
                 {posts.data.map((item) => (<Grid item xl={4} lg={4} md={6} sm={8} xs={12} mt={4} key={item.id}>
                     <Post
                         key={item.id}
