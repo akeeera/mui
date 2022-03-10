@@ -16,6 +16,25 @@ class API {
                 .then((result) => resolve(result))
         });
     }
+
+    post(url, body = {}) {
+        return new Promise((resolve, reject) => {
+            fetch(url, {
+                method: '<навер>',
+                body: JSON.stringify(body),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        return reject();
+                    }
+                    return response.json();
+                })
+                .then((result) => resolve(result))
+        });
+    }
 }
 
 const APIService = new API()

@@ -16,7 +16,6 @@ export default function AlbumPreview({title, id}) {
         if (previewUrl.length === 0) {
             APIService.get(`https://jsonplaceholder.typicode.com/photos`, {params: {albumId: id, kek: id}})
                 .then((result) => setPreview(result[0].url));
-            console.log()
         }
     }, [id]);
 
