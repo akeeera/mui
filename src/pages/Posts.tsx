@@ -5,15 +5,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {addPost, getPosts} from "../actions/posts.action";
 import Grid from "@mui/material/Grid";
 import {getUsers} from "../actions/getUsers";
-import {Autocomplete, TextField, Typography} from "@mui/material";
+import {Autocomplete, TextField, Theme, Typography} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import Button from "@mui/material/Button";
 import {RootState} from "../store/preloadedState";
-import {APIService} from "../api/API";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
     root: {
-        // @ts-ignore
         [theme.breakpoints.up("md")]: {
             justifyContent: "start",
         },
@@ -107,7 +105,7 @@ function Posts() {
                     </Grid>
                     <Grid item m={2} pt={6}>
                         <Button variant="contained" disabled={!title || !body || !author} onClick={createPost}
-                                type={"submit"} size="large">ADD POST</Button>
+                              size="large">ADD POST</Button>
                     </Grid>
 
                 </Grid>

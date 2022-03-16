@@ -8,20 +8,13 @@ import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Header from "./components/Header";
 import Albums from "./pages/Albums";
 import Photos from "./pages/Photos";
+import {Theme} from "@mui/material";
 
 declare module '@mui/material/styles' {
-    interface ThemeOptions {
-        status: {
-            danger: string;
-        };
-    }
+    interface DefaultTheme extends Theme {}
 }
 
-const theme = createTheme({
-    status: {
-        danger: '#000000',
-    },
-});
+export const theme = createTheme()
 
 function App() {
     return (

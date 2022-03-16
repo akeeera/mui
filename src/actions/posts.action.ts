@@ -1,8 +1,9 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {APIService} from "../api/API";
+import {Post} from "../types/post.type";
 
-export const getPosts = createAsyncThunk("posts/getPosts", async () => {
-    return await APIService.get(`https://jsonplaceholder.typicode.com/posts`);
+export const getPosts = createAsyncThunk("posts/getPosts", async (): Promise<Post[]> => {
+    return await APIService.get<Post[]>(`https://jsonplaceholder.typicode.com/posts`);
 });
 
 export type AddPostProps = {
@@ -11,6 +12,6 @@ export type AddPostProps = {
     userId: number
 }
 
-export const addPost = createAsyncThunk("posts/addPosts", async (body: AddPostProps) => {
-    return await APIService.post(`https://jsonplaceholder.typicode.com/posts`, body);
+export const addPost = createAsyncThunk("posts/addPosts", async (body: AddPostProps): Promise<Post> => {
+    return await APIService.post<Post>(`https://jsonplaceholder.typicode.com/posts`, body);
 });

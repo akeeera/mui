@@ -1,19 +1,21 @@
-import {AddPostProps} from "../actions/posts.action";
-
 type Config = {
     params?: {
         [key: string]: string | number
     }
 }
 
+type Body = {
+
+}
+
 class API {
-    get(url: string, config: Config = {}) {
+    get<R>(url: string, config: Config = {}) {
         const newUrl = new URL(url);
         for (const key in config.params) {
             newUrl.searchParams.set(key, config.params[key].toString());
         }
 
-        return new Promise((resolve, reject) => {
+        return new Promise<R>((resolve, reject) => {
             fetch(url.toString())
                 .then((response) => {
                     if (!response.ok) {
@@ -25,9 +27,9 @@ class API {
         });
     }
 
-    post(url, body = {}) {
-        return new Promise((resolve, reject) => {
-            fetch(url, {
+    post<R>(url: string, body: Body = {}) {
+        return new Promise<R>((resolve, reject) => {
+            fetch(url.toString(), {
                 method: 'POST',
                 body: JSON.stringify(body),
                 headers: {

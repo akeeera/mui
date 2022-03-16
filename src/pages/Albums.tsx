@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import { getAlbums } from "../actions/getAlbums";
 import { makeStyles } from "@mui/styles";
-import { Typography } from "@mui/material";
+import {Theme, Typography} from "@mui/material";
 import {RootState} from "../store/preloadedState";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     // @ts-ignore
     [theme.breakpoints.up("md")]: {

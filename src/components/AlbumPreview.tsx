@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import {CardActionArea} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {APIService} from "../api/API";
+import {Photo} from "../types/photo.type";
 
 type AlbumPreviewProps = {
     title: string
@@ -19,7 +20,7 @@ export default function AlbumPreview({title, id}: AlbumPreviewProps) {
 
     useEffect(() => {
         if (previewUrl.length === 0) {
-            APIService.get(`https://jsonplaceholder.typicode.com/photos`, {params: {albumId: id}})
+            APIService.get<Photo[]>(`https://jsonplaceholder.typicode.com/photos`, {params: {albumId: id}})
                 .then((result) => setPreview(result[0].url));
         }
     }, [id]);
