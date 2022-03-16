@@ -6,12 +6,7 @@ export const getPosts = createAsyncThunk("posts/getPosts", async (): Promise<Pos
     return await APIService.get<Post[]>(`https://jsonplaceholder.typicode.com/posts`);
 });
 
-export type AddPostProps = {
-    body: string,
-    title: string,
-    userId: number
-}
 
-export const addPost = createAsyncThunk("posts/addPosts", async (body: AddPostProps): Promise<Post> => {
+export const addPost = createAsyncThunk("posts/addPosts", async (body: { body: string, title: string, userId: number }): Promise<Post> => {
     return await APIService.post<Post>(`https://jsonplaceholder.typicode.com/posts`, body);
 });
