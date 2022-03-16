@@ -10,7 +10,6 @@ import {RootState} from "../store/preloadedState";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    // @ts-ignore
     [theme.breakpoints.up("md")]: {
       justifyContent: "start",
     },

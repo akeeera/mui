@@ -20,6 +20,7 @@ import {useSelector} from "react-redux";
 import Grid from "@mui/material/Grid";
 import {RootState} from "../store/preloadedState";
 import {IconButtonProps} from "@mui/material/IconButton/IconButton";
+import {Urls} from "../api/urls";
 
 const useStyles = makeStyles(() => ({
     likeIcon: {
@@ -87,7 +88,7 @@ export default function Post({title, body, userId, id}: PostProps) {
 
     useEffect(() => {
         if (expanded && comments.length === 0) {
-            fetch(`https://jsonplaceholder.typicode.com/comments?postId=${id}`)
+            fetch(Urls.COMMENTS + `?postId=${id}`)
                 .then((response) => response.json())
                 .then((result) => setComments(result));
         }

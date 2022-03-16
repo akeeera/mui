@@ -9,14 +9,20 @@ type Body = {
 }
 
 class API {
+
+    private baseURL: string;
+
+    constructor() {
+        this.baseURL = 'https://jsonplaceholder.typicode.com'
+    }
+
     get<R>(url: string, config: Config = {}) {
-        const newUrl = new URL(url);
+        const newUrl = new URL(this.baseURL + url);
         for (const key in config.params) {
             newUrl.searchParams.set(key, config.params[key].toString());
         }
-
         return new Promise<R>((resolve, reject) => {
-            fetch(url.toString())
+            fetch(newUrl.toString())
                 .then((response) => {
                     if (!response.ok) {
                         return reject();

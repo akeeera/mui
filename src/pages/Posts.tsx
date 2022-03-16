@@ -53,8 +53,6 @@ function Posts() {
 
     function createPost() {
         dispatch(addPost({body, title, userId: author.id}));
-        // APIService.post('https://jsonplaceholder.typicode.com/posts', {body, title, userId: author.id})
-        //     .then((json) => console.log(json));
     }
 
     return (<div className="posts">
