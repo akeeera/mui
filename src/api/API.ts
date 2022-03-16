@@ -1,8 +1,16 @@
+import {AddPostProps} from "../actions/posts.action";
+
+type Config = {
+    params?: {
+        [key: string]: string | number
+    }
+}
+
 class API {
-    get(url, config = {}) {
-        url = new URL(url);
+    get(url: string, config: Config = {}) {
+        const newUrl = new URL(url);
         for (const key in config.params) {
-            url.searchParams.set(key, config.params[key]);
+            newUrl.searchParams.set(key, config.params[key].toString());
         }
 
         return new Promise((resolve, reject) => {
@@ -20,7 +28,7 @@ class API {
     post(url, body = {}) {
         return new Promise((resolve, reject) => {
             fetch(url, {
-                method: '<навер>',
+                method: 'POST',
                 body: JSON.stringify(body),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',

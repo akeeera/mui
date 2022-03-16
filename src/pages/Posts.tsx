@@ -8,9 +8,12 @@ import {getUsers} from "../actions/getUsers";
 import {Autocomplete, TextField, Typography} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import Button from "@mui/material/Button";
+import {RootState} from "../store/preloadedState";
+import {APIService} from "../api/API";
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        // @ts-ignore
         [theme.breakpoints.up("md")]: {
             justifyContent: "start",
         },
@@ -19,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Posts() {
-    const {posts, users} = useSelector((state) => state);
+    const {posts, users} = useSelector((state: RootState) => state);
     const [author, setAuthor] = useState(null);
     const [body, setBody] = useState('');
     const [title, setTitle] = useState('');
@@ -46,12 +49,8 @@ function Posts() {
         setBody(e.target.value)
     }
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log('author:', author.label);
-        console.log('title:', title);
-        console.log('body:', body);
-        document.documentElement.id()
+    function handleChangeTitle(e) {
+        setTitle(e.target.value)
     }
 
     function createPost() {
@@ -62,7 +61,7 @@ function Posts() {
 
     return (<div className="posts">
 
-            <form onSubmit={handleSubmit}>
+            <form>
                 <Grid
                     container
                     justifyContent={"center"}>
@@ -91,7 +90,7 @@ function Posts() {
                     <Grid item m={2} pt={5}>
                         <TextField
                             value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            onChange={handleChangeTitle}
                             id="outlined-basic1"
                             label="Title"
                             variant="outlined"

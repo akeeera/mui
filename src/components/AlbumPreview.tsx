@@ -8,13 +8,18 @@ import {CardActionArea} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {APIService} from "../api/API";
 
-export default function AlbumPreview({title, id}) {
+type AlbumPreviewProps = {
+    title: string
+    id: number
+}
+
+export default function AlbumPreview({title, id}: AlbumPreviewProps) {
     const navigate = useNavigate();
     const [previewUrl, setPreview] = React.useState("");
 
     useEffect(() => {
         if (previewUrl.length === 0) {
-            APIService.get(`https://jsonplaceholder.typicode.com/photos`, {params: {albumId: id, kek: id}})
+            APIService.get(`https://jsonplaceholder.typicode.com/photos`, {params: {albumId: id}})
                 .then((result) => setPreview(result[0].url));
         }
     }, [id]);
@@ -24,22 +29,21 @@ export default function AlbumPreview({title, id}) {
     return (
         <Card
             onClick={() => {
-                navigate(`${id}`);
-            }}
-        >
-            <CardActionArea>
-                <CardContent>
-                    <Typography gutterBottom variant="subtitle2" component="div">
-                        {title}
-                    </Typography>
-                </CardContent>
-                <CardMedia
-                    component="img"
-                    height="140"
-                    image={previewUrl}
-                    alt="green iguana"
-                />
-            </CardActionArea>
-        </Card>
+            navigate(`${id}`);
+        }}>
+        <CardActionArea>
+            <CardContent>
+                <Typography gutterBottom variant="subtitle2" component="div">
+                    {title}
+                </Typography>
+            </CardContent>
+            <CardMedia
+                component="img"
+                height="140"
+                image={previewUrl}
+                alt="green iguana"
+            />
+        </CardActionArea>
+    </Card>
     );
 }
